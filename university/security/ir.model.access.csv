@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+all_access_students,all_access_students,model_university_students,,1,1,1,1
+all_access_departments,all_access_departments,model_university_departments,,1,1,1,1
+all_access_hobbies,all_access_hobbies,model_university_hobbies,,1,1,1,1
+all_acess_car,all_access_car,model_car,,1,1,1,1
+all_acess_bus,all_access_bus,model_bus,,1,1,1,1
+all_acess_train,all_access_train,model_train,,1,1,1,1
+
+

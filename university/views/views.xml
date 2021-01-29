@@ -3,19 +3,212 @@
 
 <odoo>
 
+    <!-- tree view of students -->
      <record id="tree_view_students" model="ir.ui.view" >
      	<field name="name">  tree.view.students  </field>
-     	<field name="model">  university.students </field>
+     	<field name="model">university.students</field>
      	<field name="arch" type="xml" >
            <tree>
                    <field name="name"/>
-                   <field name="age"/>  
+                   <field name="age"/> 
+                   <field name='is_foreigner'/> 
+                   <field name='birth_date'/>
+                   <field name='gender'/>
 
            </tree>
-
      	</field>
+     </record>
+
+
+
+     <!-- form view of students -->
+     <record id="form_view_students" model="ir.ui.view" >
+      <field name="name">  form.view.students  </field>
+      <field name="model">university.students</field>
+      <field name="arch" type="xml" >
+           <form>
+              <sheet>
+                  <group>
+                      <field name="name"/>
+                      <field name="age"/>  
+                      <field name='department_id' />
+                      <field name='head_of_department'/>
+                      <field name='hobby_ids' widget='many2many_tags'/>
+                      <field name='vehicle'/>
+                      <field name='note'/>
+                      <field name='weight'/>
+                      <field name='is_foreigner'/>
+                      <field name='birth_date'/>
+                      <field name='registration_date'/>
+                      <field name='gender'/>
+                      <field name='image'/>
+                      <field name='recommendation_letter'/>
+
+                  </group>
+
+              </sheet>
+
+           </form>
+
+      </field>
 
      </record>
+
+     
+     <!-- action for students -->
+     <record model='ir.actions.act_window' id='students_action'>
+         <field name='name'> Students </field>
+         <field name='res_model'>university.students</field>
+         <field name='view_mode'>tree,form</field>
+     </record>
+
+
+
+
+
+
+
+
+
+
+
+     <!-- tree view for departments -->
+     <record id="tree_view_departments" model="ir.ui.view" >
+      <field name="name">  tree.view.departments  </field>
+      <field name="model">university.departments</field>
+      <field name="arch" type="xml" >
+           <tree>
+                   <field name='name'/>
+                   <field name='head_of_department' />
+
+           </tree>
+      </field>
+     </record>
+
+     
+     <!-- form view of departments -->
+     <record id="form_view_departments" model="ir.ui.view" >
+      <field name="name">  form.view.departments  </field>
+      <field name="model">university.departments</field>
+      <field name="arch" type="xml" >
+           <form>
+            <sheet>
+                <group>
+                   <field name='name'/>
+                   <field name='head_of_department' />
+                   <field name='student_ids' />
+                 </group>
+            </sheet>
+
+           </form>
+      </field>
+     </record>
+
+     <!-- action for departments -->
+     <record model='ir.actions.act_window' id='departments_action'>
+         <field name='name'> Departments </field>
+         <field name='res_model'>university.departments</field>
+         <field name='view_mode'>tree,form</field>
+     </record>
+
+
+
+
+
+
+
+
+
+
+
+     <!-- tree view for hobby -->
+     <record id="tree_view_hobbies" model="ir.ui.view" >
+      <field name="name">  tree.view.hobbies </field>
+      <field name="model">university.hobbies</field>
+      <field name="arch" type="xml" >
+           <tree>
+                   <field name='name'/>
+                   <field name='hobby_type' />
+
+           </tree>
+      </field>
+     </record>
+
+     <!-- form view of hobby -->
+     <record id="form_view_hobbies" model="ir.ui.view" >
+      <field name="name">  form.view.hobbies  </field>
+      <field name="model">university.hobbies</field>
+      <field name="arch" type="xml" >
+           <form>
+            <sheet>
+                <group>
+                   <field name='name'/>
+                   <field name='hobby_type' />
+                 </group>
+            </sheet>
+
+           </form>
+      </field>
+     </record>
+
+     <!-- action of hobby -->
+     <record model='ir.actions.act_window' id='hobbies_action'>
+         <field name='name'> Hobbies </field>
+         <field name='res_model'>university.hobbies</field>
+         <field name='view_mode'>tree,form</field>
+     </record>
+
+
+     <!-- action of  car -->
+     <record model='ir.actions.act_window' id='car_action'>
+         <field name='name'> car </field>
+         <field name='res_model'>car</field>
+         <field name='view_mode'>tree,form</field>
+     </record>
+
+
+     <!-- action of  bus-->
+     <record model='ir.actions.act_window' id='bus_action'>
+         <field name='name'> bus </field>
+         <field name='res_model'>bus</field>
+         <field name='view_mode'>tree,form</field>
+     </record>
+
+
+     <!-- action of train -->
+     <record model='ir.actions.act_window' id='train_action'>
+         <field name='name'> train </field>
+         <field name='res_model'>train</field>
+         <field name='view_mode'>tree,form</field>
+     </record>
+
+
+
+
+
+
+
+     <!-- menus -->
+     <menuitem name='University'  id='main_menu'/> 
+
+     <menuitem name="Students"  id='student_menu' parent='main_menu' action='students_action' />
+
+     <menuitem name="Departments"  id='department_menu' parent='main_menu' action='departments_action' />
+
+     <menuitem name="Hobbies"  id='hobbies_menu' parent='main_menu' action='hobbies_action' />
+
+
+
+    <menuitem name='Vehicles' id = 'vehicle_menu' parent='main_menu' />
+
+     <menuitem name="Cars"  id='car_menu' parent='vehicle_menu' action='car_action' />
+     <menuitem name="Trains"  id='train_menu' parent='vehicle_menu' action='train_action' />
+     <menuitem name="Buses"  id='bus_menu' parent='vehicle_menu' action='bus_action' />
+
+
+
+
+
 
 
 
