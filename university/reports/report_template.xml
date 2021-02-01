@@ -31,23 +31,25 @@
 				     <table width='800'> 
 
 				     	<thead>
-				     	
+				     		<th><strong> Index </strong></th>
 				     		<th><strong> Full Name </strong></th>
 				     		<th><strong> Gender </strong> </th>
 				     		<th><strong> State  </strong></th>
 				     	</thead>
 
 				     	<tbody>
+				     		<t t-set ='index'   t-value='1' />
 				     		<t t-foreach='department.student_ids' t-as='student'>
 				     			<tr>
-				     
-				     				<td style="text-align:center;">
-				     					<text t-field='student.name'/> </td>
+				     				<td style="text-align:center;"> <t t-esc='index'/>   </td>
+				     				<td style="text-align:center;"><text t-field='student.name'/> </td>
 				     				<td style="text-align:center;"><text t-field='student.gender' /></td>
 				     				<td style="text-align:center;"><text t-field='student.state' /></td>
 				     			</tr>
-				     			
+				     			<t t-set ='index'   t-value='index + 1' />
 				     		</t>
+				     	
+				     	
 				     	</tbody>
 
 
