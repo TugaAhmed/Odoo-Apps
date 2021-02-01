@@ -1,68 +1,71 @@
-
 <odoo>
-	
-	<template id="department_template_id">
-        <t t-call="web.html_container">
-		 	   	
-		 	
 
-		 	   <t t-foreach="docs" t-as="department"> 	
-		 	   	<div class="page" style="page-break-before:always">
-		 	   	
-		 		
-		 	
-
-				 	<strong> Department name :  </strong>  <text t-field="department.name"/> 
-				 	<br></br><br></br>
-				 	
-				 	<strong> Head of Department :  </strong>  <text t-field = "department.head_of_department"/>
-				 	<br></br>
-				
-
-				 <br></br> <br></br>
+	<template id='department_template_id'>
 
 
-				 <h3> Students : </h3>
+		<t t-call="web.html_container">
 
-				 <br></br> <br></br>
-				 
-				 <center>
-
-				     <table width='800'> 
-
-				     	<thead>
-				     	
-				     		<th><strong> Full Name </strong></th>
-				     		<th><strong> Gender </strong> </th>
-				     		<th><strong> State  </strong></th>
-				     	</thead>
-
-				     	<tbody>
-				     		<t t-foreach='department.student_ids' t-as='student'>
-				     			<tr>
-				     
-				     				<td style="text-align:center;">
-				     					<text t-field='student.name'/> </td>
-				     				<td style="text-align:center;"><text t-field='student.gender' /></td>
-				     				<td style="text-align:center;"><text t-field='student.state' /></td>
-				     			</tr>
-				     			
-				     		</t>
-				     	</tbody>
-
-
-				     </table>
-				 </center>
-
-
-
-				
-				 	</div>
-				 
-		    </t>
-
-	
-		</t>
 			
+
+			<t t-foreach="docs" t-as='department' >
+				<div class='page' style='page-break-before:always'>
+
+				     <center><h1> Departments Report </h1> </center> <br></br>
+
+					<strong> Department name :  </strong>  <text t-field='department.name'/> 
+					<br></br><br></br>
+
+					<strong> Head Of Department : </strong>  <text t-field='department.head_of_department'/>
+					<br></br>
+
+					<br></br><br></br>
+
+					<h3> Students </h3>
+
+					<table width='800'>
+						<thead>
+							<th> Index </th>
+							<th> Name </th>
+							<th> Gender </th>
+							<th> State </th>
+
+						</thead>
+
+						<tbody>
+
+							<t t-set='index' t-value='1'/>
+							<t t-foreach='department.student_ids' t-as='student'>
+
+								<tr>
+									    <td style='text-align : center;'> <t t-esc='index'/>  </td>
+										<td style='text-align : center;'> <text t-field='student.name' /> </td>
+										<td style='text-align : center;'> <text t-field='student.gender' /> </td>
+										<td style='text-align : center;'> <text t-field='student.state' /> </td>
+								</tr>
+							<t t-set='index' t-value='index + 1'/>
+						    </t>
+
+
+
+						</tbody>
+
+
+
+
+
+					</table>
+
+				</div>
+
+
+
+			</t>
+
+
+		</t>
+
 	</template>
+
+
+
 </odoo>

@@ -288,7 +288,9 @@
      <!-- menus -->
      <menuitem name='University'  id='main_menu'/> 
 
-     <menuitem name="Students"  id='student_menu' parent='main_menu' action='students_action' />
+     <menuitem name="Students"  id='student_menu' parent='main_menu'  />
+
+     <menuitem name='All Students' id='all_students_menu' parent='student_menu' action='students_action'/>
 
      <menuitem name="Departments"  id='department_menu' parent='main_menu' action='departments_action' />
 

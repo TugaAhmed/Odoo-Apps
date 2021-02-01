@@ -179,17 +179,16 @@ class Departments(models.Model) :
 
 	student_ids = fields.One2many('university.students','department_id',string='Students')
 
-	count_sudents = fields.Integer(string='Studnet Count' , compute='count_students' , store=True)
+	count_sudents = fields.Integer(string='Studnet Count' , compute='count_students' )
 
 
 	
 	def count_students(self) :
-		self.count_students = 0
+		self.count_sudents = 0
 		for record in self :
-			record.count_students = 0 
+			record.count_sudents = 0 
 
-			
-			record.count_students = len(record.student_ids)
+			record.count_sudents = len(record.student_ids)
 			print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS len(record.student_ids)",len(record.student_ids))
 			
 
