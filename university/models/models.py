@@ -182,7 +182,7 @@ class Departments(models.Model) :
 	count_sudents = fields.Integer(string='Studnet Count' , compute='count_students' )
 
 
-	
+	@api.depends('student_ids')
 	def count_students(self) :
 		self.count_sudents = 0
 		for record in self :

@@ -44,10 +44,10 @@
 								</tr>
 							<t t-set='index' t-value='index + 1'/>
 						    </t>
-
-
-
 						</tbody>
+
+
+
 
 
 
