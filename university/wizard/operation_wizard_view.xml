@@ -1,0 +1,90 @@
+<odoo>
+	<data>
+
+
+		 <record model="ir.ui.view" id="operation_wizard_view">
+		      <field name="name">operation wizard view</field>
+		      <field name="model">operation.wizard</field>
+		      <field name="arch" type="xml">
+		      	<form>
+		      		
+		      		<group>
+		      			<field name='student_ids' widget='many2many_tags'/>
+		      		</group>
+		      	
+
+
+		      		<footer>
+		      			<button name='put_recommendation' string='Recommend' type='object' />
+
+		      			<button name='delete_students' string='Delete' type='object'/>
+		      			<button string="Cancel" class="btn btn-secondary" special="cancel"/>
+		      		</footer>
+		      		
+		      	</form>
+		      </field>
+		  </record>
+
+
+				<record model="ir.actions.act_window" id="operation_wizard_action">
+				      <field name="name">Operation Wizard</field>
+				      <field name="res_model">operation.wizard</field>
+				      <field name="view_mode">form</field>
+				      <field name="target">new</field>
+				      
+				    </record>
+
+
+				 <menuitem name='Students Operations' id="studnets_operations_menu" action='operation_wizard_action' parent='university.main_menu'  
+			/>
+
+
+
+		 <record model="ir.ui.view" id="report_wizard_view">
+		      <field name="name">student wizard view</field>
+		      <field name="model">students.report.wizard</field>
+		      <field name="arch" type="xml">
+		      	<form>
+		      		<group>
+		      			<field name='start_date' />
+		      			<field name='end_date' />
+		      		
+		      		</group>
+
+
+		      		<footer>
+		      			<button name='print_report' string='Print' type='object' />
+
+		      		</footer>
+		      	</form>
+		      </field>
+		  </record>
+
+
+
+		<record model="ir.actions.act_window" id="student_report_wizard_action">
+		      <field name="name">student Wizard</field>
+		      <field name="res_model">students.report.wizard</field>
+		      <field name="view_mode">form</field>
+		      <field name="target">new</field>
+		    </record>
+
+
+		<menuitem name='Students Reports' id="studnets_report_menu" action='student_report_wizard_action' parent='university.main_menu' 
+			 />
+
+
+
+
+
+
+
+
+
+	</data>
+</odoo>
+
+
+
+
+

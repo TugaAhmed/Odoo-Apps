@@ -3,6 +3,52 @@
 
 <odoo>
 
+
+
+    <record id="tree_view_student_register" model="ir.ui.view" >
+      <field name="name">  tree.view.student.register </field>
+      <field name="model">student.register</field>
+      <field name="arch" type="xml" >
+           <tree>
+                  <field name='first_name'/>
+                  <field name='second_name'/>
+                   <field name="name"/>
+                   <field name='birth_date'/>
+                   
+
+           </tree>
+      </field>
+     </record>
+
+
+
+     <record id="form_view_student_register" model="ir.ui.view" >
+      <field name="name">  form.view.student.register </field>
+      <field name="model">student.register</field>
+      <field name="arch" type="xml" >
+           <form>
+            <header>
+              <button name='accept_student' type='object' string='Accept Student' /> 
+              <button name='delete_student' type='object' string='Delete Student' />
+            </header>
+            <sheet>
+              <group>
+                  <field name='first_name'/>
+                  <field name='second_name'/>
+                   <field name="name"/>
+                   <field name='birth_date'/>
+                   <field name='pass_port'/>
+                   <field name='certificate'/>
+                 </group>
+
+                 </sheet>
+                   
+
+           </form>
+      </field>
+     </record>
+
+
     <!-- tree view of students -->
      <record id="tree_view_students" model="ir.ui.view" >
      	<field name="name">  tree.view.students  </field>
@@ -27,16 +73,36 @@
       <field name="model">university.students</field>
       <field name="arch" type="xml" >
            <form>
+             <header> 
+
+                 <button name='put_recommendation' type='object' string='Put Recommendation' states='graduated'/>
+
+                 <button name='first_to_second' type='object' string='First To Second' states='first_year'/>
+                 <button name='second_to_third' type='object' string='Second To Third' states='second_year'/>
+                 <button name='third_to_graduated' type='object' string='Third To Graduated' states='third_year'/>
+
+                 <button states='graduated' name='graduated_to_third' string='Graduated to Third' type='object'/>
+
+               <field name='state' widget='statusbar'/>
+             </header>
+
+
+
               <sheet>
+
                   <group>
+                      <field name='first_name'/>
+                      <field name='second_name'/>
                       <field name="name"/>
                       <field name="age"/>  
+                      <field name='phone'/>
                       <field name='department_id' />
                       <field name='head_of_department'/>
                       <field name='hobby_ids' widget='many2many_tags'/>
                       <field name='vehicle'/>
                       <field name='note'/>
                       <field name='weight'/>
+                      <field name='first_lang'/>
                       <field name='is_foreigner'/>
                       <field name='birth_date'/>
                       <field name='registration_date'/>
@@ -54,11 +120,26 @@
 
      </record>
 
+     <record model='ir.actions.act_window' id='students_in_department'>
+       <field name='name'>Students in department</field>
+       <field name='res_model'>university.students</field>
+       <field name='view_mode'>tree,form</field>
+       <field name='domain'>[('department_id' , '=' , active_id )]</field>
+
+     </record>
+
      
      <!-- action for students -->
      <record model='ir.actions.act_window' id='students_action'>
          <field name='name'> Students </field>
          <field name='res_model'>university.students</field>
+         <field name='view_mode'>tree,form</field>
+     </record>
+
+
+      <record model='ir.actions.act_window' id='students_register_action'>
+         <field name='name'> Students Register </field>
+         <field name='res_model'>student.register</field>
          <field name='view_mode'>tree,form</field>
      </record>
 
@@ -92,7 +173,23 @@
       <field name="model">university.departments</field>
       <field name="arch" type="xml" >
            <form>
+
+             <header>
+               <button name="%(students_in_department)d" type = 'action' string='Studnets' />
+
+            
+             </header>
+
             <sheet>
+              <div class="oe_button_box" name="button_box">
+                <button name="%(students_in_department)d" type = 'action' string='Studnets' icon='fa-user'>
+                  <field name='count_sudents'/>
+                </button>
+
+              </div>
+
+
+
                 <group>
                    <field name='name'/>
                    <field name='head_of_department' />
@@ -204,6 +301,10 @@
      <menuitem name="Cars"  id='car_menu' parent='vehicle_menu' action='car_action' />
      <menuitem name="Trains"  id='train_menu' parent='vehicle_menu' action='train_action' />
      <menuitem name="Buses"  id='bus_menu' parent='vehicle_menu' action='bus_action' />
+
+      <menuitem name="Student Register"  id='student_register_menu' parent='main_menu' action='students_register_action' />
+
+     
 
 
 
