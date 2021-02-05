@@ -54,12 +54,14 @@
      	<field name="name">  tree.view.students  </field>
      	<field name="model">university.students</field>
      	<field name="arch" type="xml" >
-           <tree>
+           <tree string='Students Information' default_order='name' decoration-danger = "is_pass == False" 
+            decoration-success = "is_pass == True" limit='3'>
                    <field name="name"/>
                    <field name="age"/> 
                    <field name='is_foreigner'/> 
                    <field name='birth_date'/>
                    <field name='gender'/>
+                   <field name='is_pass'/>
 
            </tree>
      	</field>
@@ -74,43 +76,67 @@
       <field name="arch" type="xml" >
            <form>
              <header> 
-
                  <button name='put_recommendation' type='object' string='Put Recommendation' states='graduated'/>
-
-                 <button name='first_to_second' type='object' string='First To Second' states='first_year'/>
+                 <button name='first_to_second' type='object' string='First To Second' states='first_year' confirm='Are You Sure You Want to change studnet state ?'/>
                  <button name='second_to_third' type='object' string='Second To Third' states='second_year'/>
                  <button name='third_to_graduated' type='object' string='Third To Graduated' states='third_year'/>
-
                  <button states='graduated' name='graduated_to_third' string='Graduated to Third' type='object'/>
-
-               <field name='state' widget='statusbar'/>
+                 <field name='state' widget='statusbar'/>
              </header>
 
 
-
               <sheet>
+                  <field name='image' widget='image' class="oe_avatar"/>
 
-                  <group>
-                      <field name='first_name'/>
+                  <group string="Personal Information" col='4'>
+                      <field name='first_name' required='1'/>
                       <field name='second_name'/>
                       <field name="name"/>
-                      <field name="age"/>  
-                      <field name='phone'/>
-                      <field name='department_id' />
-                      <field name='head_of_department'/>
-                      <field name='hobby_ids' widget='many2many_tags'/>
-                      <field name='vehicle'/>
-                      <field name='note'/>
-                      <field name='weight'/>
+                      
+                      <field name='birth_date'/>
+                      <field name="age"/> 
+                      <field name='gender' widget='radio'/>
+
+                      <field name='weight' placeholder='Enter Studnet Weight'/>
                       <field name='first_lang'/>
                       <field name='is_foreigner'/>
-                      <field name='birth_date'/>
-                      <field name='registration_date'/>
-                      <field name='gender'/>
-                      <field name='image'/>
-                      <field name='recommendation_letter'/>
-
                   </group>
+
+                    <group string='Registration Information' col='4'>
+                      <field name='faculty_id'/>
+                      <field name='department_id' domain="[('facluty_id','=',faculty_id)]"  />
+                      <field name='head_of_department'/>
+                      <field name='registration_date'/>
+                      <field name='percentage' widget='progressbar'/>
+                      <field name='is_pass'/>
+                    </group>
+
+
+                  <notebook>
+                    <page string='Other Information'>
+                      <group>
+                        <field name='facebook_account' widget='url'/>
+                        <field name='student_email' widget='email' password='1'/>
+                        <field name='phone' attrs=" {'required' : [('state' , '=' , 'graduated')]  } "  />
+                        <field name='hobby_ids' widget='many2many_tags'/>
+                        <field name='vehicle' invisible='1'/>
+                      </group>
+                    </page>
+                    <page string='Recommendation'>
+                      <field name='recommendation_letter'/>
+                    </page>
+
+                    <page string='Notes'>
+                      <group>
+                        <field name='note'/>
+                        <field name='time' widget='float_time'/>
+                        <field name='holiday_start_date'/>
+                        <field name='holiday_end_date'/>
+                    </group>
+                    </page>
+
+                 
+                </notebook>
 
               </sheet>
 
@@ -119,6 +145,95 @@
       </field>
 
      </record>
+
+
+     <record model='ir.ui.view' id='students_kanban_view'>
+         <field name='name'>Students Kanban View </field>
+         <field name='model'>university.students</field>
+         <field name='arch' type='xml'>
+          <kanban>
+              <field name='id'/>
+              <field name='name'/>
+              <field name='gender'/>
+              <field name='image'/>
+              <field name='first_lang'/>
+              <field name='registration_date'/>
+
+              <templates>
+                <t t-name='kanban-box'>
+                  <div t-attf-class='oe_kanban_global_click oe_kanban_color_#{kanban_getcolor(record.gender.value)}' >
+                    <div class='o_kanban_image'> <img width='90' hight='90' t-att-src="kanban_image('university.students' , 'image' , record.id.value )"/>
+                    </div>
+
+                  <strong> Name </strong>  <field name='name'/> <br></br>
+                  <strong> Language </strong> <field name='first_lang'/> <br></br>
+                  <strong> Registration Date </strong> <field name='registration_date'/><br></br>
+                  <strong> Gender </strong> <field name='gender'/>
+                </div>
+                </t>
+
+              </templates>
+
+          </kanban>
+
+         </field>
+     </record>
+
+     <record model='ir.ui.view' id='students_search_view'>
+      <field name='name'>Studnets Search View </field>
+      <field name='model'>university.students</field>
+      <field name='arch' type='xml'>
+        <search>
+          <field name='department_id'/>
+          <field name='gender' />
+
+          <filter name='femals' string='Femals' domain="[('gender' , '=' , 'female')]"/>
+          <filter name='males' string='Males' domain="[('gender' , '=' , 'male')]"/>
+
+          <filter name='Department' string='Department' context="{'group_by' : 'department_id'}"/>
+
+
+
+        </search>
+      </field>
+     </record>
+
+     <record model='ir.ui.view' id='students_graph_view'>
+      <field name='name'>Studnets Graph View </field>
+      <field name='model'>university.students</field>
+      <field name='arch' type='xml'>
+        <graph type='bar'>
+          <field name='gender'/>
+        </graph>
+      </field>
+     </record>
+
+     <record model='ir.ui.view' id='students_calendar_view'>
+      <field name='name'>Studnets Calendar View </field>
+      <field name='model'>university.students</field>
+      <field name='arch' type='xml'>
+        <calendar date_start='holiday_start_date'  date_stop = 'holiday_end_date' mode='month'>
+          <field name='name'/>
+
+      
+        </calendar>
+      </field>
+     </record>
+
+
+
+     <record model='ir.ui.view' id='students_pivot_view'>
+      <field name='name'>Studnets Pivot View </field>
+      <field name='model'>university.students</field>
+      <field name='arch' type='xml'>
+        <pivot >
+          <field name='first_lang' type='row'/>
+          <field name='department_id' type='col'/>
+        </pivot>
+      </field>
+     </record>
+
+
 
      <record model='ir.actions.act_window' id='students_in_department'>
        <field name='name'>Students in department</field>
@@ -131,9 +246,10 @@
      
      <!-- action for students -->
      <record model='ir.actions.act_window' id='students_action'>
-         <field name='name'> Students </field>
+         <field name='name'> Students Information</field>
          <field name='res_model'>university.students</field>
-         <field name='view_mode'>tree,form</field>
+         <field name='view_mode'>tree,form,kanban,search,graph,calendar,pivot</field>
+         <field name='context'>{'create' : 1 , 'edit' : 1}</field>
      </record>
 
 
@@ -161,6 +277,7 @@
            <tree>
                    <field name='name'/>
                    <field name='head_of_department' />
+                   <field name='count_sudents' sum='Total'/>
 
            </tree>
       </field>
@@ -193,6 +310,7 @@
                 <group>
                    <field name='name'/>
                    <field name='head_of_department' />
+                   <field name='facluty_id' options="{'no_create' : True , 'no_open' : True}"/>
                    <field name='student_ids' />
                  </group>
             </sheet>
@@ -223,7 +341,7 @@
       <field name="name">  tree.view.hobbies </field>
       <field name="model">university.hobbies</field>
       <field name="arch" type="xml" >
-           <tree>
+           <tree editable='top'>
                    <field name='name'/>
                    <field name='hobby_type' />
 
@@ -292,7 +410,8 @@
 
      <menuitem name='All Students' id='all_students_menu' parent='student_menu' action='students_action'/>
 
-     <menuitem name="Departments"  id='department_menu' parent='main_menu' action='departments_action' />
+     <menuitem name="Departments"  id='department_menu' parent='main_menu' action='departments_action' 
+      groups="" />
 
      <menuitem name="Hobbies"  id='hobbies_menu' parent='main_menu' action='hobbies_action' />
 

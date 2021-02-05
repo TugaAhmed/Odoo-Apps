@@ -1,9 +1,18 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+,,,,,,,
+dept_manager_access_students,dept_manager_access_students,model_university_students,group_dept_manager,1,1,0,0
+academic_reg_access_students,academic_reg_access_students,model_university_students,group_academic_reg,1,1,1,1
+academic_secr_access_students,academic_secr_access_students,model_university_students,group_academic_secr,1,1,0,0
+dean_access_students,dean_access_students,model_university_students,group_dean,1,1,0,0
+,,,,,,,
+,,,,,,,
+,,,,,,,
+dept_manager_access_departments,dept_manager_access_dept,model_university_departments,group_dept_manager,1,0,0,0
+academic_reg_access_departments,academic_reg_access_dept,model_university_departments,group_academic_reg,1,1,0,0
+academic_secr_access_departments,academic_secr_access_dept,model_university_departments,group_academic_secr,1,0,0,0
+dean_access_departments,dean_access_dept,model_university_departments,group_dean,1,1,1,1
 
-all_access_students,all_access_students,model_university_students,,1,1,1,1
-all_access_departments,all_access_departments,model_university_departments,,1,1,1,1
-all_access_hobbies,all_access_hobbies,model_university_hobbies,,1,1,1,1
-all_access_car,all_access_car,model_car,,1,1,1,1
-all_access_bus,all_access_bus,model_bus,,1,1,1,1
-all_access_train,all_access_train,model_train,,1,1,1,1
+
+
+dean_access_faculties,dean_access_fac,model_faculties,group_dean,1,1,1,1
 

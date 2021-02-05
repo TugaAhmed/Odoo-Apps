@@ -20,19 +20,28 @@
     'application' : True ,
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base','hr'],
 
     # always loaded
     'data':  [
+    'security/security_groups.xml',
     'security/ir.model.access.csv',
+
     'views/views.xml' ,
     'wizard/operation_wizard_view.xml',
     'reports/report_template.xml',
     'reports/report_action.xml',
     'reports/student_report_template.xml',
+    'views/employee_inherit.xml',
+
+    'views/faculties_view.xml'
     
    
 
+    ],
+
+    'demo': [
+        'demo/demo.xml',
     ],
    
 }

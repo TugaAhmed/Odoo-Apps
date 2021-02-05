@@ -39,15 +39,15 @@ class Students(models.Model) :
 	_name = 'university.students'
 
 
-	name = fields.Char(string='Studnet Name')
+	name = fields.Char(string='Studnet Name' )
 
 	first_name = fields.Char(string='First Name')
 	second_name = fields.Char(string='Second Name')
 
 
-	age  = fields.Integer(string='Age' , compute='compute_age')
+	age  = fields.Integer(string='Age' , compute='compute_age' , store=True)
 	note = fields.Text(string='Note')
-	weight = fields.Float(string='Weight')
+	weight = fields.Float(string='Weight' , digits=(3,5))
 	is_foreigner = fields.Boolean(string='Is Foreigner')
 	birth_date = fields.Date(string='Birth Date')
 	registration_date = fields.Datetime(string='Registration Date')
@@ -55,19 +55,30 @@ class Students(models.Model) :
 	image = fields.Binary(string='Photo')
 	recommendation_letter = fields.Html(string='Recommendation Letter ')
 
-	department_id = fields.Many2one('university.departments',string='Department')
+	department_id = fields.Many2one('university.departments',string='Department' )
 
 	hobby_ids = fields.Many2many('university.hobbies',string='Hobbies')
 
 	vehicle = fields.Reference( [ ('car','Car') , ('train','Train') , ('bus','Bus') ]  )
 
-	head_of_department = fields.Char(string='Head of Department' , related='department_id.head_of_department')
+	head_of_department = fields.Many2one('res.users',string='Head of Department' , related='department_id.head_of_department')
 
 	phone = fields.Char(string='Phone')
 
 	first_lang = fields.Selection(string='First Language', selection = [ ('ar','Arabic') , ('en','English')  , ('fr','French')  , ('other','Other')   ]    )
 
 	active = fields.Boolean('Active' , default='True')
+
+	faculty_id = fields.Many2one('faculties' , string='Faculty')
+
+	facebook_account = fields.Char('Facebook')
+	student_email = fields.Char('Email')
+	time = fields.Float('Time')
+	percentage = fields.Float('Percentage' , default=30.0)
+
+	holiday_start_date = fields.Date('Holiday Start Date')
+	holiday_end_date = fields.Date('Holiday End Date')
+	is_pass = fields.Boolean('Is Pass')
 
 	state = fields.Selection(string='state' , selection = [('first_year','First Year') , ('second_year','Second Year') , ('third_year','Third Year') , ('graduated','Graduated') ]  , default='first_year')
 
@@ -171,72 +182,11 @@ class Students(models.Model) :
 
 
 
-class Departments(models.Model) :
-	_name = 'university.departments'
-
-	name = fields.Char(string='Name')
-	head_of_department = fields.Char(string='Head Of Department')
-
-	student_ids = fields.One2many('university.students','department_id',string='Students')
-
-	count_sudents = fields.Integer(string='Studnet Count' , compute='count_students' )
-
-
-	@api.depends('student_ids')
-	def count_students(self) :
-		self.count_sudents = 0
-		for record in self :
-			record.count_sudents = 0 
-
-			record.count_sudents = len(record.student_ids)
-			print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS len(record.student_ids)",len(record.student_ids))
-			
-
-
-
-
-
 class hobbies(models.Model) :
 	_name = 'university.hobbies'
 
 	name = fields.Char(string='Hobby Name')
 	hobby_type = fields.Selection(string='Type' , selection= [('sport','Sport') , ('music','Music') , ('art' , 'Art') , ('other','Other') ]  )
-
-
-
-
-class bus(models.Model) :
-	_name = 'bus'
-
-	name = fields.Char(string='Bus Name')
-	color = fields.Char(strint='Color')
-	number = fields.Char(string='Number')
-
-
-
-class car(models.Model) :
-	_name = 'car'
-
-	name = fields.Char(string='car Name')
-	color = fields.Char(strint='Color')
-	number = fields.Char(string='Number')
-
-
-class train(models.Model) :
-	_name = 'train'
-
-	name = fields.Char(string='Train Name')
-	color = fields.Char(strint='Color')
-	number = fields.Char(string='Number')
-
-
-
-
-	
-
-
-
-
 
 
 

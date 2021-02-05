@@ -39,7 +39,7 @@
 	</record>
 
 
-	<menuitem name='Students Operation' id='students_operation_menu' action='operation_wizrd_action' 
+	<menuitem name='Students Operationn' id='students_operation_menu' action='operation_wizrd_action' 
 		parent='university.student_menu' />
 
 

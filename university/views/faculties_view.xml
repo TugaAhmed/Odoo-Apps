@@ -1,0 +1,13 @@
+<odoo>
+
+
+ 	<record model='ir.actions.act_window' id='faculties_action'>
+         <field name='name'> Faculties Information</field>
+         <field name='res_model'>faculties</field>
+         <field name='view_mode'>tree,form</field>
+         
+     </record>
+
+
+      <menuitem name="Faculties"  id='faculties_menu' parent='university.main_menu' action='faculties_action' />
+ </odoo>

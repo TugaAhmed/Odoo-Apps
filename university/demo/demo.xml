@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+ 
+          <record id="computer_faculty" model="faculties">
+            <field name="name">Computer Science</field>
+          </record>
+
+
+           <record id="med_faculty" model="faculties">
+            <field name="name">Medicine</field>
+          </record>
+
+
+           <record id="science_faculty" model="faculties">
+            <field name="name">Science</field>
+          </record>
+
+
+
+
+           <record id="it_department" model="university.departments">
+            <field name="name">Information Technology</field>
+            <field name='facluty_id' ref='computer_faculty'/>
+          </record>
+
+          <record id="software_department" model="university.departments">
+            <field name="name">Software Engineering</field>
+            <field name='facluty_id' ref='computer_faculty'/>
+          </record>
+        
+    </data>
+</odoo>
